@@ -21,6 +21,8 @@ const Staffshift = () => import('@/views/staffshift/index.vue')
 const Runway = () => import('@/views/runway/index.vue')
 const Emergencyplan = () => import('@/views/emergencyplan/index.vue')
 const Qualitycheck = () => import('@/views/qualitycheck/index.vue')
+const Badge = () => import('@/views/badge/index.vue')
+const BadgeDetail = () => import('@/views/badge/detail.vue')
 
 const router = createRouter({
   history: createWebHistory(),
@@ -46,6 +48,8 @@ const router = createRouter({
     { path: '/runway', name: 'runway', component: Runway },
     { path: '/emergencyplan', name: 'emergencyplan', component: Emergencyplan },
     { path: '/qualitycheck', name: 'qualitycheck', component: Qualitycheck },
+    { path: '/badge', name: 'badge', component: Badge },
+    { path: '/badge/:id', name: 'badge-detail', component: BadgeDetail },
   ],
 })
 

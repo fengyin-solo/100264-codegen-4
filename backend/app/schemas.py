@@ -267,3 +267,33 @@ class QualitycheckEntry(BaseModel):
     field_5: str | None = None  # 整改要求
     field_6: str | None = None  # 整改期限
     field_7: str | None = None  # 监察状态
+
+
+class BadgeExcludedEntry(BaseModel):
+    """被过滤掉的通行证：必须带过滤类别与可读原因。"""
+
+    id: int
+    通行证编号: str
+    姓名: str | None = None
+    工号: str | None = None
+    所属单位: str | None = None
+    岗位: str | None = None
+    门禁权限: str | None = None
+    有效期起: str | None = None
+    有效期止: str | None = None
+    办理时间: str | None = None
+    参与筛选: bool = False
+    过滤类别: str  # 重复授权 / 已过期 / 权限与岗位不符
+    过滤原因: str
+
+
+class BadgeListResult(BaseModel):
+    """通行证筛选结果：有效证、分页信息、过滤明细、统计与筛选项候选。"""
+
+    items: list[dict[str, Any]]
+    total: int
+    page: int = 1
+    size: int = 20
+    excluded: list[BadgeExcludedEntry] = Field(default_factory=list)
+    stats: list[dict[str, Any]] = Field(default_factory=list)
+    facets: dict[str, Any] = Field(default_factory=dict)
