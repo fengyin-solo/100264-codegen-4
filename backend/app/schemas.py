@@ -21,6 +21,19 @@ class ActionResult(BaseModel):
     entry: dict[str, Any] | None = None
 
 
+class PassbadgePageResult(BaseModel):
+    """通行证列表：除了有效证分页结果，还带筛选选项、过滤说明与待办数。"""
+
+    items: list[dict[str, Any]]
+    total: int
+    page: int = 1
+    size: int = 50
+    units: list[str] = Field(default_factory=list)
+    levels: list[str] = Field(default_factory=list)
+    excluded: list[dict[str, Any]] = Field(default_factory=list)
+    pending_total: int = 0
+
+
 class EntryPayload(BaseModel):
     """登记或修改一条业务记录时提交的字段集合。"""
 

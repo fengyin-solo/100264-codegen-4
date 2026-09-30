@@ -31,6 +31,19 @@ class Store:
         modules: list[dict[str, object]] = []
         for name in self.module_names():
             rows = self.rows(name)
+            if name == "passbadge":
+                # 通行证的待办/异常以过滤后的明细为准，不能直接数种子标记，
+                # 否则“旧授权不参与筛选”这类规则会让概览和清单对不上。
+                from app.services.passbadge import PassbadgeService
+
+                badge_stats = PassbadgeService().stats()
+                modules.append({
+                    "name": name,
+                    "created": len(rows),
+                    "pending": badge_stats["pending"],
+                    "abnormal": badge_stats["excluded"],
+                })
+                continue
             modules.append({
                 "name": name,
                 "created": len(rows),

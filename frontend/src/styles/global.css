@@ -33,3 +33,24 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .link { border: none; background: none; color: var(--brand); cursor: pointer; padding: 0; }
 .page-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .error-text { color: #b42318; }
+.filter-item select { padding: 4px 6px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; background: #fff; }
+.error-panel { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #fef3f2; border: 1px solid #fda29b; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 13px; }
+.error-panel .btn:disabled { opacity: 0.6; cursor: default; }
+.text-warn, .badge-warn { color: #b54708; font-weight: 600; }
+.renew-tag { font-style: normal; color: #b54708; background: #fef0c7; border-radius: 4px; padding: 1px 6px; font-size: 12px; margin-left: 6px; }
+.excluded-box { margin-top: 12px; background: #fff; border: 1px dashed #fda29b; border-radius: 8px; padding: 10px 14px; }
+.excluded-title { font-size: 13px; margin: 0 0 8px; color: #b42318; }
+.excluded-list { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.excluded-list li { display: flex; gap: 10px; font-size: 12px; flex-wrap: wrap; }
+.excluded-id { color: #1f2937; min-width: 240px; }
+.excluded-reason { color: #b42318; }
+.detail-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; max-width: 720px; }
+.detail-error { max-width: 720px; }
+.detail-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.detail-head h3 { margin: 0; font-size: 18px; }
+.state-chip { border-radius: 999px; padding: 3px 12px; font-size: 12px; }
+.state-ok { background: #dcfae6; color: #027a48; }
+.state-bad { background: #fef3f2; color: #b42318; }
+.detail-grid { display: grid; grid-template-columns: 110px 1fr; row-gap: 10px; column-gap: 16px; margin: 0; }
+.detail-grid dt { color: var(--muted); font-size: 13px; }
+.detail-grid dd { margin: 0; font-size: 13px; }

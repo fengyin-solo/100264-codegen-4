@@ -1,7 +1,53 @@
 """示例数据：每个模块给几条不同状态的记录，方便起服务后立刻看到内容。"""
 from __future__ import annotations
 
+from datetime import date, timedelta
 from typing import Any
+
+
+def _iso(offset_days: int) -> str:
+    """以今天为基准偏移 offset_days 天，返回 YYYY-MM-DD。
+
+    通行证含有效期，写死日期会随时间让演示数据全部过期，因此按当天动态生成。
+    """
+    return (date.today() + timedelta(days=offset_days)).isoformat()
+
+
+def _passbadge_seed() -> list[dict[str, Any]]:
+    """通行证样例：刻意覆盖重复授权、过期、岗位与门禁不符、临近到期几种情形。"""
+    # (编号, 姓名, 单位, 岗位, 级别, 办理日期偏移, 到期偏移, pending, abnormal)
+    raw = [
+        (1, "张伟", "地勤服务部", "机坪装卸员", "机坪", -565, 12, False, True),       # 被本人新证取代
+        (2, "张伟", "机务工程部", "机务维修员", "管控区", -60, 305, False, False),
+        (3, "李娜", "地勤服务部", "客梯车操作员", "管控区", -90, 95, False, False),
+        (4, "王强", "机务工程部", "加油员", "机坪", -150, 200, False, True),          # 被本人新证取代
+        (5, "王强", "地勤服务部", "货运司机", "候机隔离区", -30, 335, False, False),
+        (6, "赵敏", "货运保障部", "安全检查员", "管控区", -400, -30, False, True),    # 已过期
+        (7, "孙磊", "运行指挥中心", "运行指挥员", "管控区", -360, 5, True, False),    # 临近到期
+        (8, "周杰", "地勤服务部", "机坪装卸员", "管控区", -20, 345, False, False),
+        (9, "吴芳", "运行指挥中心", "廊桥操作员", "机坪", -370, -5, False, True),     # 已过期
+        (10, "郑昊", "地勤服务部", "货运司机", "机坪", -340, 25, False, True),        # 级别与岗位不符
+        (11, "钱进", "机务工程部", "机务维修员", "候机隔离区", -337, 28, False, True),  # 级别与岗位不符
+        (12, "冯洁", "运行指挥中心", "客梯车操作员", "机坪", -343, 22, True, False),  # 临近到期
+        (13, "陈涛", "地勤服务部", "加油员", "管控区", -5, 360, False, False),
+        (14, "褚明", "机务工程部", "运行指挥员", "机坪", -165, 200, False, True),     # 级别与岗位不符
+    ]
+    rows: list[dict[str, Any]] = []
+    for pid, name, unit, post, level, issued, expiry, pending, abnormal in raw:
+        rows.append({
+            "id": pid,
+            "通行证编号": f"PASS-{pid:04d}",
+            "姓名": name,
+            "所属单位": unit,
+            "所在岗位": post,
+            "门禁级别": level,
+            "办理日期": _iso(issued),
+            "有效期至": _iso(expiry),
+            "pending": pending,
+            "abnormal": abnormal,
+        })
+    return rows
+
 
 SEED_ROWS: dict[str, list[dict[str, Any]]] = {
     "flightstand": [{'id': 1,
@@ -720,5 +766,6 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
   '发现违章': '质量监察样例3',
   '整改要求': '质量监察样例3',
   '整改期限': '2026-09-03',
-  '监察状态': '质量监察样例3'}]
+  '监察状态': '质量监察样例3'}],
+    "passbadge": _passbadge_seed(),
 }
